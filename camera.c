@@ -32,6 +32,11 @@ int cam_connect(Camera *camera) {
   camera->width = sensinfo.nMaxWidth;
   camera->height = sensinfo.nMaxHeight;
 
+  UINT nPixelClock;
+  // Get current pixel clock
+  nRet = is_PixelClock(hCam, IS_PIXELCLOCK_CMD_GET, (void*)&nPixelClock, sizeof(nPixelClock));
+  fprintf(stderr, "CurrentPixelClock=%u",nPixelClock);
+
   fprintf(stderr, "Setting color mode\n");
   // use 8 bits per channel, with 3 channels. Need BGR order for correct
   // colour display when saving to BMP
