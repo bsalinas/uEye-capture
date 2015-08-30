@@ -79,8 +79,7 @@ int main(int argc, char **argv) {
         cam_capture(&camera, wbuf);
 
         zmq_send(responder, okp, strlen(okp), 0);
-      } 
-    }
+      }
 
     zmq_close(responder);
     zmq_ctx_destroy(ctx);
