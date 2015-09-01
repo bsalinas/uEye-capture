@@ -1,4 +1,4 @@
-LIBS = -lm -lueye_api -lzmq
+LIBS = -L /user/local/lib -lm -lueye_api -lzmq
 CC = gcc
 CFLAGS = -g -Wall
 
