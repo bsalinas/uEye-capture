@@ -40,7 +40,7 @@ int cam_connect(Camera *camera) {
   fprintf(stderr, "Setting color mode\n");
   // use 8 bits per channel, with 3 channels. Need BGR order for correct
   // colour display when saving to BMP
-  chk(is_SetColorMode(hCam, IS_CM_BGR8_PACKED));
+  chk(is_SetColorMode(hCam, IS_CM_JPEG));//IS_CM_BGR8_PACKED));
 
   // set a low exposure
   double exposure_ms = 1000;
@@ -56,8 +56,8 @@ int cam_connect(Camera *camera) {
 
   chk(is_AllocImageMem(
         camera->hCam, 
-        camera->width,
-        camera->height,
+        2592,//1920,//camera->width,
+        1944,//camera->height,
         3*8,      // bits per pixel
         &imagemem,
         &imagememid));
@@ -88,12 +88,12 @@ wchar_t *cam_capture(Camera *camera, wchar_t *path) {
   fprintf(stderr, "Capturing image\n");
   chk(is_FreezeVideo(camera->hCam, IS_WAIT));
 
-  if (path == NULL) path = L"snapshot.bmp";
+  if (path == NULL) path = L"snapshot.jpg";
 
   fprintf(stderr, "Saving image to %ls\n", path);
   IMAGE_FILE_PARAMS fparams;
   fparams.pwchFileName = path;
-  fparams.nFileType = IS_IMG_BMP;
+  fparams.nFileType = IS_IMG_JPG;
   fparams.ppcImageMem = &camera->imagemem;
   fparams.pnImageID = &camera->imagememid;
 
