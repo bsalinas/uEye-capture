@@ -41,7 +41,12 @@ int cam_connect(Camera *camera) {
   // use 8 bits per channel, with 3 channels. Need BGR order for correct
   // colour display when saving to BMP
   chk(is_SetColorMode(hCam, IS_CM_BGR8_PACKED));
-
+  INT focusLevel = 163;
+  chk(is_Focus(hCam, 
+    FOC_CMD_SET_MANUAL_FOCUS,
+    &focusLevel,
+    sizeof(focusLevel)
+  ));
   // set a low exposure
   double exposure_ms = 1000;
   chk(is_Exposure(
